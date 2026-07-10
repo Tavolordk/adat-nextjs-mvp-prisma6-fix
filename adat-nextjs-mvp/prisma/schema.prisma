@@ -1,0 +1,89 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+  LECTOR
+}
+
+enum RegistrationStatus {
+  NUEVO
+  REVISADO
+  ACEPTADO
+  RECHAZADO
+}
+
+enum Discipline {
+  NATACION
+  AGUAS_ABIERTAS
+  CLAVADOS
+  WATERPOLO
+  NADO_ARTISTICO
+  OTRO
+}
+
+enum ExperienceLevel {
+  PRINCIPIANTE
+  INTERMEDIO
+  AVANZADO
+  ALTO_RENDIMIENTO
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  role         UserRole @default(ADMIN)
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  auditLogs AuditLog[]
+
+  @@map("users")
+}
+
+model Registration {
+  id             String             @id @default(cuid())
+  firstName      String             @map("first_name")
+  lastName       String             @map("last_name")
+  email          String
+  phone          String
+  birthDate      DateTime?          @map("birth_date")
+  municipality   String
+  discipline     Discipline
+  level          ExperienceLevel
+  clubOrSchool   String?            @map("club_or_school")
+  guardianName   String?            @map("guardian_name")
+  guardianPhone  String?            @map("guardian_phone")
+  comments       String?
+  status         RegistrationStatus @default(NUEVO)
+  createdAt      DateTime           @default(now()) @map("created_at")
+  updatedAt      DateTime           @updatedAt @map("updated_at")
+
+  @@index([status])
+  @@index([createdAt])
+  @@map("registrations")
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?  @map("user_id")
+  action    String
+  entity    String
+  entityId  String?  @map("entity_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@index([entity, entityId])
+  @@map("audit_logs")
+}
