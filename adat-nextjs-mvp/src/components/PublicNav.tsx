@@ -73,15 +73,30 @@ export function PublicNav() {
         className="public-nav-menu"
         aria-label="Navegación principal"
       >
-        <Link href="/#programas" onClick={closeMenu}>
-          Programas
+        <Link href="/" onClick={closeMenu}>
+          Inicio
         </Link>
-        <Link href="/#objetivos" onClick={closeMenu}>
-          Objetivos
+
+        <Link href="/liga-estatal-de-natacion" onClick={closeMenu}>
+          Liga Estatal de Natación
         </Link>
-        <Link href="/registro" className="nav-cta" onClick={closeMenu}>
-          Registro
+
+        <Link href="/competencias" onClick={closeMenu}>
+          Competencias
         </Link>
+
+        <Link href="/tiempos-tope-y-ranking-estatal" onClick={closeMenu}>
+          Tiempos tope y ranking estatal
+        </Link>
+
+        <Link href="/proximos-eventos-y-competencias" onClick={closeMenu}>
+          Próximos eventos y competencias
+        </Link>
+
+        <Link href="/afiliacion" className="nav-cta" onClick={closeMenu}>
+          Afíliate
+        </Link>
+
         <Link href="/login" onClick={closeMenu}>
           Admin
         </Link>

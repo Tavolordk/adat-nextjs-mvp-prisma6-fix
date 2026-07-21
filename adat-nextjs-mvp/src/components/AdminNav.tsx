@@ -83,16 +83,19 @@ export function AdminNav() {
         <Link href="/admin" className="admin-link" onClick={closeMenu}>
           <Icon name="dashboard" /> Dashboard
         </Link>
+
         <Link
           href="/admin/registros"
           className="admin-link"
           onClick={closeMenu}
         >
-          <Icon name="users" /> Registros
+          <Icon name="users" /> Afiliaciones
         </Link>
+
         <Link href="/" className="admin-link" onClick={closeMenu}>
           <Icon name="wave" /> Sitio público
         </Link>
+
         <button
           type="button"
           className="admin-link admin-button"

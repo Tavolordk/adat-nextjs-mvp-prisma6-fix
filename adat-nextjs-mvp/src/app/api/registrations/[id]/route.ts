@@ -1,9 +1,11 @@
-import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
-import { requireAdmin } from '@/lib/auth';
-import { updateRegistrationSchema } from '@/lib/validators';
+import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import { requireAdmin } from "@/lib/auth";
+import { updateRegistrationSchema } from "@/lib/validators";
 
-type Params = { params: Promise<{ id: string }> };
+type Params = {
+  params: Promise<{ id: string }>;
+};
 
 export async function PATCH(request: Request, { params }: Params) {
   try {
@@ -20,15 +22,23 @@ export async function PATCH(request: Request, { params }: Params) {
       data: {
         userId: user.id,
         action: `CAMBIO_STATUS_${data.status}`,
-        entity: 'registration',
+        entity: "registration",
         entityId: id
       }
     });
 
-    return NextResponse.json({ message: 'Registro actualizado.', registration });
+    return NextResponse.json({
+      message: "Afiliación actualizada.",
+      registration
+    });
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'No fue posible actualizar.';
-    return NextResponse.json({ message }, { status: message === 'No autorizado' ? 401 : 400 });
+    const message =
+      error instanceof Error ? error.message : "No fue posible actualizar.";
+
+    return NextResponse.json(
+      { message },
+      { status: message === "No autorizado" ? 401 : 400 }
+    );
   }
 }
 
@@ -38,18 +48,24 @@ export async function DELETE(_request: Request, { params }: Params) {
     const { id } = await params;
 
     await prisma.registration.delete({ where: { id } });
+
     await prisma.auditLog.create({
       data: {
         userId: user.id,
-        action: 'ELIMINO_REGISTRO',
-        entity: 'registration',
+        action: "ELIMINO_REGISTRO",
+        entity: "registration",
         entityId: id
       }
     });
 
-    return NextResponse.json({ message: 'Registro eliminado.' });
+    return NextResponse.json({ message: "Afiliación eliminada." });
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'No fue posible eliminar.';
-    return NextResponse.json({ message }, { status: message === 'No autorizado' ? 401 : 400 });
+    const message =
+      error instanceof Error ? error.message : "No fue posible eliminar.";
+
+    return NextResponse.json(
+      { message },
+      { status: message === "No autorizado" ? 401 : 400 }
+    );
   }
 }

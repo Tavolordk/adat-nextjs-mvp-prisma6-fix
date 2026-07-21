@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type Stats = {
   total: number;
@@ -18,13 +18,16 @@ export default function AdminPage() {
 
   useEffect(() => {
     async function load() {
-      const response = await fetch('/api/admin/stats');
+      const response = await fetch("/api/admin/stats");
+
       if (response.status === 401) {
-        router.replace('/login');
+        router.replace("/login");
         return;
       }
+
       setStats(await response.json());
     }
+
     load();
   }, [router]);
 
@@ -33,19 +36,41 @@ export default function AdminPage() {
       <div className="admin-topbar">
         <div>
           <h1>Dashboard</h1>
-          <p>Resumen de solicitudes recibidas por el formulario público.</p>
+
+          <p>
+            Resumen de solicitudes de afiliación recibidas desde el sitio
+            público.
+          </p>
         </div>
-        <Link href="/admin/registros" className="btn-primary">Ver registros</Link>
+
+        <Link href="/admin/registros" className="btn-primary">
+          Ver afiliaciones
+        </Link>
       </div>
 
       {!stats ? (
         <div className="loading">Cargando indicadores...</div>
       ) : (
         <div className="stats-grid">
-          <div className="stat-card"><span>Total</span><strong>{stats.total}</strong></div>
-          <div className="stat-card"><span>Nuevos</span><strong>{stats.nuevo}</strong></div>
-          <div className="stat-card"><span>Revisados</span><strong>{stats.revisado}</strong></div>
-          <div className="stat-card"><span>Aceptados</span><strong>{stats.aceptado}</strong></div>
+          <div className="stat-card">
+            <span>Total</span>
+            <strong>{stats.total}</strong>
+          </div>
+
+          <div className="stat-card">
+            <span>Nuevos</span>
+            <strong>{stats.nuevo}</strong>
+          </div>
+
+          <div className="stat-card">
+            <span>Revisados</span>
+            <strong>{stats.revisado}</strong>
+          </div>
+
+          <div className="stat-card">
+            <span>Aceptados</span>
+            <strong>{stats.aceptado}</strong>
+          </div>
         </div>
       )}
     </section>

@@ -1,37 +1,38 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { Icon } from '@/components/icons';
-import { PublicNav } from '@/components/PublicNav';
+import Image from "next/image";
+import Link from "next/link";
+import { Icon } from "@/components/icons";
+import { PublicFooter } from "@/components/PublicFooter";
+import { PublicNav } from "@/components/PublicNav";
 
 const programas = [
   {
-    icon: 'wave' as const,
-    title: 'Natación competitiva',
-    text: 'Entrenamiento progresivo para atletas que buscan competir a nivel estatal, nacional e internacional.'
+    icon: "wave" as const,
+    title: "Natación competitiva",
+    text: "Entrenamiento progresivo para atletas que buscan competir a nivel estatal, nacional e internacional.",
   },
   {
-    icon: 'target' as const,
-    title: 'Alto rendimiento',
-    text: 'Formación con disciplina, medición de avances y objetivos deportivos claros por temporada.'
+    icon: "target" as const,
+    title: "Alto rendimiento",
+    text: "Formación con disciplina, medición de avances y objetivos deportivos claros por temporada.",
   },
   {
-    icon: 'users' as const,
-    title: 'Comunidad acuática',
-    text: 'Vinculación entre atletas, entrenadores, familias, clubes e instituciones deportivas.'
+    icon: "users" as const,
+    title: "Comunidad acuática",
+    text: "Vinculación entre atletas, entrenadores, familias, clubes e instituciones deportivas.",
   },
   {
-    icon: 'medal' as const,
-    title: 'Competencias',
-    text: 'Organización y participación constante en eventos deportivos para impulsar el talento tlaxcalteca.'
-  }
+    icon: "medal" as const,
+    title: "Competencias",
+    text: "Organización y participación constante en eventos deportivos para impulsar el talento tlaxcalteca.",
+  },
 ];
 
 const valores = [
-  ['Disciplina', 'Base de todo resultado.'],
-  ['Compromiso', 'Cumplir incluso cuando no hay motivación.'],
-  ['Respeto', 'Entre atletas, entrenadores y rivales.'],
-  ['Trabajo en equipo', 'El éxito es colectivo.'],
-  ['Orgullo tlaxcalteca', 'Representar con identidad.']
+  ["Disciplina", "Base de todo resultado."],
+  ["Compromiso", "Cumplir incluso cuando no hay motivación."],
+  ["Respeto", "Entre atletas, entrenadores y rivales."],
+  ["Trabajo en equipo", "El éxito es colectivo."],
+  ["Orgullo tlaxcalteca", "Representar con identidad."],
 ];
 
 export default function Home() {
@@ -41,51 +42,105 @@ export default function Home() {
 
       <section className="hero">
         <div className="hero-copy">
-          <span className="eyebrow"><Icon name="wave" /> Asociación de Deportes Acuáticos de Tlaxcala</span>
+          <span className="eyebrow">
+            <Icon name="wave" /> Asociación de Deportes Acuáticos de Tlaxcala
+          </span>
+
           <h1>
-            Nacidos en Tlaxcala,<br />
+            Nacidos en Tlaxcala,
+            <br />
             <span className="gradient-text">hechos en el agua.</span>
           </h1>
+
           <p>
-            ADAT impulsa la formación de atletas acuáticos con disciplina, compromiso y excelencia deportiva para representar con orgullo a Tlaxcala.
+            ADAT impulsa la formación de atletas acuáticos con disciplina,
+            compromiso y excelencia deportiva para representar con orgullo a
+            Tlaxcala.
           </p>
+
           <div className="hero-actions">
-            <Link href="/registro" className="btn-primary">Registrarme ahora</Link>
-            <Link href="#programas" className="btn-secondary">Ver programas</Link>
+            <Link href="/afiliacion" className="btn-primary">
+              Afiliarme ahora
+            </Link>
+
+            <Link href="/liga-estatal-de-natacion" className="btn-secondary">
+              Conocer la liga
+            </Link>
           </div>
         </div>
 
         <div className="hero-card">
           <div className="logo-panel">
-            <Image src="/assets/adat-logo.png" alt="Logo ADAT" width={530} height={300} priority />
+            <Image
+              src="/assets/adat-logo.png"
+              alt="Logo ADAT"
+              width={530}
+              height={300}
+              priority
+            />
           </div>
+
           <div className="stat-strip">
-            <div className="stat"><strong>2026</strong><span>temporada de impulso</span></div>
-            <div className="stat"><strong>2450m</strong><span>identidad competitiva</span></div>
-            <div className="stat"><strong>ADAT</strong><span>Tlaxcala en el agua</span></div>
+            <div className="stat">
+              <strong>2026</strong>
+              <span>temporada de impulso</span>
+            </div>
+
+            <div className="stat">
+              <strong>2450m</strong>
+              <span>identidad competitiva</span>
+            </div>
+
+            <div className="stat">
+              <strong>ADAT</strong>
+              <span>Tlaxcala en el agua</span>
+            </div>
           </div>
         </div>
       </section>
 
       <div className="search-band" aria-label="Accesos rápidos">
-        <div className="search-field"><small>Disciplina</small><strong>Natación / Acuáticos</strong></div>
-        <div className="search-field"><small>Sede</small><strong>Tlaxcala</strong></div>
-        <div className="search-field"><small>Estatus</small><strong>Registro abierto</strong></div>
-        <Link href="/registro" className="btn-primary">Inscribirme</Link>
+        <div className="search-field">
+          <small>Disciplina</small>
+          <strong>Natación / Acuáticos</strong>
+        </div>
+
+        <div className="search-field">
+          <small>Sede</small>
+          <strong>Tlaxcala</strong>
+        </div>
+
+        <div className="search-field">
+          <small>Estatus</small>
+          <strong>Afiliación abierta</strong>
+        </div>
+
+        <Link href="/afiliacion" className="btn-primary">
+          Afiliarme
+        </Link>
       </div>
 
       <section className="section" id="programas">
         <div className="section-head">
-          <span className="eyebrow"><Icon name="shield" /> Formación deportiva</span>
+          <span className="eyebrow">
+            <Icon name="shield" /> Formación deportiva
+          </span>
+
           <h2>Una estructura acuática seria para talento tlaxcalteca.</h2>
+
           <p>
-            El sitio está pensado para funcionar como landing institucional, captación de registros y acceso al panel administrativo de ADAT.
+            Conoce la liga estatal, consulta competencias, revisa los tiempos
+            tope y sigue el calendario oficial de ADAT.
           </p>
         </div>
+
         <div className="cards-grid">
           {programas.map((item) => (
             <article className="card" key={item.title}>
-              <div className="icon-wrap"><Icon name={item.icon} /></div>
+              <div className="icon-wrap">
+                <Icon name={item.icon} />
+              </div>
+
               <h3>{item.title}</h3>
               <p>{item.text}</p>
             </article>
@@ -96,14 +151,20 @@ export default function Home() {
       <section className="section split-section" id="objetivos">
         <div className="blue-panel">
           <span className="eyebrow">Misión y visión</span>
+
           <h2>Competidores capaces de destacar.</h2>
+
           <p>
-            Desarrollar, formar y potenciar atletas en disciplinas acuáticas mediante programas de entrenamiento de alto nivel.
+            Desarrollar, formar y potenciar atletas en disciplinas acuáticas
+            mediante programas de entrenamiento de alto nivel.
           </p>
+
           <p>
-            La meta es consolidar a ADAT como asociación líder en Tlaxcala y referente nacional en desarrollo de talento acuático.
+            La meta es consolidar a ADAT como asociación líder en Tlaxcala y
+            referente nacional en desarrollo de talento acuático.
           </p>
         </div>
+
         <div className="timeline">
           <div className="timeline-card">
             <strong>Corto plazo</strong>
@@ -114,15 +175,19 @@ export default function Home() {
               <li>Conseguir patrocinadores estratégicos.</li>
             </ul>
           </div>
+
           <div className="timeline-card">
             <strong>Mediano plazo</strong>
             <h3>Competencia y alianzas</h3>
             <ul>
-              <li>Participación constante en competencias estatales y nacionales.</li>
+              <li>
+                Participación constante en competencias estatales y nacionales.
+              </li>
               <li>Desarrollo de talentos destacados.</li>
               <li>Alianzas con instituciones deportivas.</li>
             </ul>
           </div>
+
           <div className="timeline-card">
             <strong>Largo plazo</strong>
             <h3>Referencia nacional</h3>
@@ -137,13 +202,20 @@ export default function Home() {
 
       <section className="section">
         <div className="section-head">
-          <span className="eyebrow"><Icon name="check" /> Valores ADAT</span>
+          <span className="eyebrow">
+            <Icon name="check" /> Valores ADAT
+          </span>
+
           <h2>La cultura deportiva que sostiene el rendimiento.</h2>
         </div>
+
         <div className="cards-grid">
           {valores.map(([title, text]) => (
             <article className="card" key={title}>
-              <div className="icon-wrap"><Icon name="check" /></div>
+              <div className="icon-wrap">
+                <Icon name="check" />
+              </div>
+
               <h3>{title}</h3>
               <p>{text}</p>
             </article>
@@ -153,22 +225,20 @@ export default function Home() {
 
       <section className="cta-section">
         <div>
-          <h2>Registra tu interés en ADAT.</h2>
+          <h2>Afíliate a ADAT.</h2>
+
           <p>
-            El formulario público guarda la solicitud y el equipo administrativo puede revisarla desde el panel protegido.
+            Inicia tu solicitud de afiliación para formar parte de la comunidad
+            acuática de Tlaxcala.
           </p>
         </div>
-        <Link href="/registro" className="btn-secondary">Ir al registro</Link>
+
+        <Link href="/afiliacion" className="btn-secondary">
+          Ir a afiliación
+        </Link>
       </section>
 
-      <footer className="footer">
-        <strong>ADAT · Asociación de Deportes Acuáticos de Tlaxcala</strong>
-        <div className="contact-row">
-          <span><Icon name="map" /> Av. Juárez 6, Col. Centro San Esteban Tizatlán, Tlaxcala</span>
-          <span><Icon name="phone" /> 246 125 3315</span>
-          <span><Icon name="mail" /> www.adat.com.mx</span>
-        </div>
-      </footer>
+      <PublicFooter />
     </main>
   );
 }
