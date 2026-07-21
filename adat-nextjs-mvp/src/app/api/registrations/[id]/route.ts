@@ -7,6 +7,10 @@ type Params = {
   params: Promise<{ id: string }>;
 };
 
+function normalizeNullable(value?: string | null) {
+  return value && value.trim().length ? value.trim() : null;
+}
+
 export async function PATCH(request: Request, { params }: Params) {
   try {
     const user = await requireAdmin();
@@ -15,13 +19,56 @@ export async function PATCH(request: Request, { params }: Params) {
 
     const registration = await prisma.registration.update({
       where: { id },
-      data: { status: data.status }
+      data: {
+        ...(data.firstName !== undefined
+          ? { firstName: data.firstName }
+          : {}),
+        ...(data.lastName !== undefined ? { lastName: data.lastName } : {}),
+        ...(data.email !== undefined ? { email: data.email } : {}),
+        ...(data.phone !== undefined ? { phone: data.phone } : {}),
+        ...(data.birthDate !== undefined
+          ? {
+            birthDate: data.birthDate ? new Date(data.birthDate) : null
+          }
+          : {}),
+        ...(data.municipality !== undefined
+          ? { municipality: data.municipality }
+          : {}),
+        ...(data.discipline !== undefined
+          ? { discipline: data.discipline }
+          : {}),
+        ...(data.level !== undefined ? { level: data.level } : {}),
+        ...(data.clubOrSchool !== undefined
+          ? {
+            clubOrSchool: normalizeNullable(data.clubOrSchool)
+          }
+          : {}),
+        ...(data.guardianName !== undefined
+          ? {
+            guardianName: normalizeNullable(data.guardianName)
+          }
+          : {}),
+        ...(data.guardianPhone !== undefined
+          ? {
+            guardianPhone: normalizeNullable(data.guardianPhone)
+          }
+          : {}),
+        ...(data.comments !== undefined
+          ? {
+            comments: normalizeNullable(data.comments)
+          }
+          : {}),
+        ...(data.status !== undefined ? { status: data.status } : {})
+      }
     });
 
     await prisma.auditLog.create({
       data: {
         userId: user.id,
-        action: `CAMBIO_STATUS_${data.status}`,
+        action:
+          Object.keys(data).length === 1 && data.status
+            ? `CAMBIO_STATUS_${data.status}`
+            : "ACTUALIZO_AFILIACION",
         entity: "registration",
         entityId: id
       }

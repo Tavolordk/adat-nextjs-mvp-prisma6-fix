@@ -709,6 +709,11 @@ td strong {
   background: white;
 }
 .small-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-height: 36px;
   border: 0;
   border-radius: 12px;
   padding: 0.55rem 0.7rem;
@@ -717,6 +722,17 @@ td strong {
   background: #eef6ff;
   color: var(--blue);
 }
+
+.small-button .icon {
+  width: 17px;
+  height: 17px;
+}
+
+.view-button {
+  background: rgba(10, 88, 216, 0.11);
+  color: #0750c6;
+}
+
 .small-button.danger {
   background: rgba(217, 60, 60, 0.12);
   color: #9b2222;
@@ -2034,5 +2050,127 @@ button,
 
   .ranking-panel {
     border-radius: 26px;
+  }
+}
+/* =========================================================
+   DETALLE Y EDICIÓN DE AFILIACIONES
+   ========================================================= */
+
+.detail-modal-backdrop {
+  position: fixed;
+  z-index: 200;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  overflow-y: auto;
+  background: rgba(4, 17, 61, 0.54);
+  backdrop-filter: blur(5px);
+}
+
+.detail-modal {
+  width: min(880px, 100%);
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+  padding: clamp(1.2rem, 3vw, 2rem);
+  border: 1px solid rgba(255, 255, 255, 0.48);
+  border-radius: 30px;
+  background: #f9fcff;
+  box-shadow: 0 28px 80px rgba(3, 20, 62, 0.34);
+}
+
+.detail-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid rgba(9, 32, 64, 0.1);
+}
+
+.detail-modal-folio {
+  display: inline-block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  color: var(--blue);
+  font-size: 0.78rem;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.detail-modal-header h2 {
+  margin: 0.35rem 0;
+  color: var(--navy);
+  font-size: clamp(1.75rem, 4vw, 2.45rem);
+  letter-spacing: -0.05em;
+}
+
+.detail-modal-header p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.detail-modal-close {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  place-items: center;
+  border: 1px solid rgba(9, 32, 64, 0.12);
+  border-radius: 14px;
+  color: var(--navy);
+  background: white;
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.detail-modal-close:disabled {
+  cursor: wait;
+  opacity: 0.55;
+}
+
+.detail-form {
+  margin-top: 1.25rem;
+}
+
+.detail-modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.detail-modal-actions .btn-primary,
+.detail-modal-actions .btn-secondary {
+  min-width: 148px;
+}
+
+@media (max-width: 760px) {
+  .detail-modal-backdrop {
+    align-items: start;
+    padding: 0.55rem;
+  }
+
+  .detail-modal {
+    max-height: calc(100dvh - 1.1rem);
+    padding: 1.1rem;
+    border-radius: 24px;
+  }
+
+  .detail-modal-header {
+    padding-bottom: 1rem;
+  }
+
+  .detail-modal-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .detail-modal-actions .btn-primary,
+  .detail-modal-actions .btn-secondary {
+    width: 100%;
   }
 }

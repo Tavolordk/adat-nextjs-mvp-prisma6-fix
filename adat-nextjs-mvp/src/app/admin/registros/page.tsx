@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { type FormEvent, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Icon } from "@/components/icons";
 import {
   disciplineLabels,
   formatDate,
@@ -15,6 +16,7 @@ type Registration = {
   lastName: string;
   email: string;
   phone: string;
+  birthDate?: string | null;
   municipality: string;
   discipline: string;
   level: string;
@@ -26,7 +28,41 @@ type Registration = {
   createdAt: string;
 };
 
+type DetailForm = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  birthDate: string;
+  municipality: string;
+  discipline: string;
+  level: string;
+  status: string;
+  clubOrSchool: string;
+  guardianName: string;
+  guardianPhone: string;
+  comments: string;
+};
+
 const statuses = ["NUEVO", "REVISADO", "ACEPTADO", "RECHAZADO"];
+
+function toDetailForm(registration: Registration): DetailForm {
+  return {
+    firstName: registration.firstName,
+    lastName: registration.lastName,
+    email: registration.email,
+    phone: registration.phone,
+    birthDate: registration.birthDate?.slice(0, 10) ?? "",
+    municipality: registration.municipality,
+    discipline: registration.discipline,
+    level: registration.level,
+    status: registration.status,
+    clubOrSchool: registration.clubOrSchool ?? "",
+    guardianName: registration.guardianName ?? "",
+    guardianPhone: registration.guardianPhone ?? "",
+    comments: registration.comments ?? "",
+  };
+}
 
 export default function RegistrosPage() {
   const router = useRouter();
@@ -35,6 +71,11 @@ export default function RegistrosPage() {
   const [q, setQ] = useState("");
   const [status, setStatus] = useState("");
   const [message, setMessage] = useState("");
+  const [selectedRegistration, setSelectedRegistration] =
+    useState<Registration | null>(null);
+  const [detailForm, setDetailForm] = useState<DetailForm | null>(null);
+  const [detailError, setDetailError] = useState("");
+  const [savingDetails, setSavingDetails] = useState(false);
 
   const query = useMemo(() => {
     const params = new URLSearchParams();
@@ -73,6 +114,26 @@ export default function RegistrosPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
+  useEffect(() => {
+    if (!selectedRegistration) {
+      return;
+    }
+
+    function closeWithEscape(event: KeyboardEvent) {
+      if (event.key === "Escape" && !savingDetails) {
+        setSelectedRegistration(null);
+        setDetailForm(null);
+        setDetailError("");
+      }
+    }
+
+    document.addEventListener("keydown", closeWithEscape);
+
+    return () => {
+      document.removeEventListener("keydown", closeWithEscape);
+    };
+  }, [selectedRegistration, savingDetails]);
+
   async function changeStatus(id: string, nextStatus: string) {
     const response = await fetch(`/api/registrations/${id}`, {
       method: "PATCH",
@@ -88,6 +149,63 @@ export default function RegistrosPage() {
     }
 
     setMessage("Afiliación actualizada correctamente.");
+    await loadRecords();
+  }
+
+  function openDetails(registration: Registration) {
+    setSelectedRegistration(registration);
+    setDetailForm(toDetailForm(registration));
+    setDetailError("");
+  }
+
+  function closeDetails() {
+    if (savingDetails) {
+      return;
+    }
+
+    setSelectedRegistration(null);
+    setDetailForm(null);
+    setDetailError("");
+  }
+
+  function updateDetailField(field: keyof DetailForm, value: string) {
+    setDetailForm((current) =>
+      current ? { ...current, [field]: value } : current,
+    );
+  }
+
+  async function saveDetails(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (!selectedRegistration || !detailForm) {
+      return;
+    }
+
+    setSavingDetails(true);
+    setDetailError("");
+
+    const response = await fetch(
+      `/api/registrations/${selectedRegistration.id}`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...detailForm,
+          birthDate: detailForm.birthDate || null,
+        }),
+      },
+    );
+
+    const payload = await response.json();
+    setSavingDetails(false);
+
+    if (!response.ok) {
+      setDetailError(payload.message || "No fue posible guardar los cambios.");
+      return;
+    }
+
+    setMessage("Afiliación actualizada correctamente.");
+    closeDetails();
     await loadRecords();
   }
 
@@ -210,6 +328,16 @@ export default function RegistrosPage() {
 
                   <td>
                     <div className="table-actions">
+                      <button
+                        type="button"
+                        className="small-button view-button"
+                        onClick={() => openDetails(item)}
+                        aria-label={`Ver detalle de ${item.firstName} ${item.lastName}`}
+                        title="Ver y editar afiliación"
+                      >
+                        <Icon name="eye" /> Ver
+                      </button>
+
                       <select
                         value={item.status}
                         onChange={(e) => changeStatus(item.id, e.target.value)}
@@ -241,6 +369,216 @@ export default function RegistrosPage() {
           </table>
         )}
       </div>
+
+      {selectedRegistration && detailForm && (
+        <div
+          className="detail-modal-backdrop"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) {
+              closeDetails();
+            }
+          }}
+        >
+          <section
+            className="detail-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="detail-modal-title"
+          >
+            <div className="detail-modal-header">
+              <div>
+                <span className="detail-modal-folio">
+                  Folio: {selectedRegistration.id}
+                </span>
+
+                <h2 id="detail-modal-title">Detalle de afiliación</h2>
+
+                <p>Consulta y corrige los datos cuando sea necesario.</p>
+              </div>
+
+              <button
+                type="button"
+                className="detail-modal-close"
+                onClick={closeDetails}
+                aria-label="Cerrar detalle"
+                disabled={savingDetails}
+              >
+                ×
+              </button>
+            </div>
+
+            {detailError && <div className="alert error">{detailError}</div>}
+
+            <form className="form-grid detail-form" onSubmit={saveDetails}>
+              <div className="form-field">
+                <label>Nombre</label>
+                <input
+                  required
+                  value={detailForm.firstName}
+                  onChange={(e) =>
+                    updateDetailField("firstName", e.target.value)
+                  }
+                />
+              </div>
+
+              <div className="form-field">
+                <label>Apellidos</label>
+                <input
+                  required
+                  value={detailForm.lastName}
+                  onChange={(e) =>
+                    updateDetailField("lastName", e.target.value)
+                  }
+                />
+              </div>
+
+              <div className="form-field">
+                <label>Correo</label>
+                <input
+                  required
+                  type="email"
+                  value={detailForm.email}
+                  onChange={(e) => updateDetailField("email", e.target.value)}
+                />
+              </div>
+
+              <div className="form-field">
+                <label>Teléfono</label>
+                <input
+                  required
+                  value={detailForm.phone}
+                  onChange={(e) => updateDetailField("phone", e.target.value)}
+                />
+              </div>
+
+              <div className="form-field">
+                <label>Fecha de nacimiento</label>
+                <input
+                  type="date"
+                  value={detailForm.birthDate}
+                  onChange={(e) =>
+                    updateDetailField("birthDate", e.target.value)
+                  }
+                />
+              </div>
+
+              <div className="form-field">
+                <label>Municipio</label>
+                <input
+                  required
+                  value={detailForm.municipality}
+                  onChange={(e) =>
+                    updateDetailField("municipality", e.target.value)
+                  }
+                />
+              </div>
+
+              <div className="form-field">
+                <label>Disciplina</label>
+                <select
+                  value={detailForm.discipline}
+                  onChange={(e) =>
+                    updateDetailField("discipline", e.target.value)
+                  }
+                >
+                  <option value="NATACION">Natación</option>
+                  <option value="AGUAS_ABIERTAS">Aguas abiertas</option>
+                  <option value="CLAVADOS">Clavados</option>
+                  <option value="WATERPOLO">Waterpolo</option>
+                  <option value="NADO_ARTISTICO">Nado artístico</option>
+                  <option value="OTRO">Otro</option>
+                </select>
+              </div>
+
+              <div className="form-field">
+                <label>Nivel</label>
+                <select
+                  value={detailForm.level}
+                  onChange={(e) => updateDetailField("level", e.target.value)}
+                >
+                  <option value="PRINCIPIANTE">Principiante</option>
+                  <option value="INTERMEDIO">Intermedio</option>
+                  <option value="AVANZADO">Avanzado</option>
+                  <option value="ALTO_RENDIMIENTO">Alto rendimiento</option>
+                </select>
+              </div>
+
+              <div className="form-field">
+                <label>Club o escuela</label>
+                <input
+                  value={detailForm.clubOrSchool}
+                  onChange={(e) =>
+                    updateDetailField("clubOrSchool", e.target.value)
+                  }
+                />
+              </div>
+
+              <div className="form-field">
+                <label>Estatus</label>
+                <select
+                  value={detailForm.status}
+                  onChange={(e) => updateDetailField("status", e.target.value)}
+                >
+                  {statuses.map((statusItem) => (
+                    <option key={statusItem} value={statusItem}>
+                      {statusLabels[statusItem]}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="form-field">
+                <label>Nombre del tutor</label>
+                <input
+                  value={detailForm.guardianName}
+                  onChange={(e) =>
+                    updateDetailField("guardianName", e.target.value)
+                  }
+                />
+              </div>
+
+              <div className="form-field">
+                <label>Teléfono del tutor</label>
+                <input
+                  value={detailForm.guardianPhone}
+                  onChange={(e) =>
+                    updateDetailField("guardianPhone", e.target.value)
+                  }
+                />
+              </div>
+
+              <div className="form-field full">
+                <label>Comentarios</label>
+                <textarea
+                  value={detailForm.comments}
+                  onChange={(e) =>
+                    updateDetailField("comments", e.target.value)
+                  }
+                />
+              </div>
+
+              <div className="detail-modal-actions form-field full">
+                <button
+                  type="button"
+                  className="btn-secondary"
+                  onClick={closeDetails}
+                  disabled={savingDetails}
+                >
+                  Cancelar
+                </button>
+
+                <button
+                  type="submit"
+                  className="btn-primary"
+                  disabled={savingDetails}
+                >
+                  {savingDetails ? "Guardando cambios..." : "Guardar cambios"}
+                </button>
+              </div>
+            </form>
+          </section>
+        </div>
+      )}
     </section>
   );
 }
