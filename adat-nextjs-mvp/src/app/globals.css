@@ -296,7 +296,20 @@ img {
 .search-field strong {
   color: var(--navy);
 }
+.search-link {
+  display: block;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
 
+.search-link:hover {
+  border-color: rgba(10, 88, 216, 0.35);
+  box-shadow: 0 10px 24px rgba(6, 30, 83, 0.08);
+  transform: translateY(-2px);
+}
 .section {
   padding: 4rem clamp(1rem, 5vw, 5rem);
 }
@@ -2173,4 +2186,1180 @@ button,
   .detail-modal-actions .btn-secondary {
     width: 100%;
   }
+}
+/* =========================================================
+   PESTAÑAS DE DISCIPLINAS DEPORTIVAS
+   ========================================================= */
+
+.discipline-section {
+  padding-bottom: 5rem;
+}
+
+.discipline-tabs-shell {
+  overflow: hidden;
+  border: 1px solid rgba(9, 32, 64, 0.08);
+  border-radius: 32px;
+  background: white;
+  box-shadow: var(--shadow);
+}
+
+.discipline-tabs {
+  display: flex;
+  gap: 0.55rem;
+  padding: 0.9rem;
+  overflow-x: auto;
+  border-bottom: 1px solid rgba(9, 32, 64, 0.08);
+  background: #f3f8ff;
+  scrollbar-width: thin;
+}
+
+.discipline-tab {
+  display: inline-flex;
+  min-height: 52px;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid rgba(9, 32, 64, 0.1);
+  border-radius: 17px;
+  color: #27466b;
+  background: white;
+  font-weight: 850;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    color 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.discipline-tab:hover {
+  border-color: rgba(10, 88, 216, 0.32);
+  color: var(--blue);
+  transform: translateY(-1px);
+}
+
+.discipline-tab.is-active {
+  border-color: transparent;
+  color: white;
+  background: linear-gradient(135deg, var(--blue), var(--aqua));
+  box-shadow: 0 10px 24px rgba(10, 88, 216, 0.22);
+}
+
+.discipline-tab-number {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border-radius: 9px;
+  color: var(--blue);
+  background: rgba(10, 88, 216, 0.1);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+}
+
+.discipline-tab.is-active .discipline-tab-number {
+  color: white;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.discipline-detail {
+  padding: clamp(1.15rem, 4vw, 2.4rem);
+}
+
+.discipline-detail-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding-bottom: 1.4rem;
+  border-bottom: 1px solid rgba(9, 32, 64, 0.08);
+}
+
+.discipline-detail-head .icon-wrap {
+  display: grid;
+  width: 56px;
+  height: 56px;
+  flex: 0 0 56px;
+  place-items: center;
+  border-radius: 18px;
+  color: var(--blue);
+  background: linear-gradient(
+    135deg,
+    rgba(10, 88, 216, 0.12),
+    rgba(33, 199, 243, 0.2)
+  );
+}
+
+.discipline-type,
+.discipline-content-status {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 850;
+}
+
+.discipline-type {
+  padding: 0.35rem 0.62rem;
+  color: var(--blue);
+  background: rgba(10, 88, 216, 0.09);
+}
+
+.discipline-detail h3 {
+  margin: 0.45rem 0;
+  color: var(--navy);
+  font-size: clamp(1.7rem, 4vw, 2.65rem);
+  letter-spacing: -0.05em;
+}
+
+.discipline-detail p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.discipline-content-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.85rem;
+  padding-top: 1.4rem;
+}
+
+.discipline-content-card {
+  min-height: 172px;
+  padding: 1.1rem;
+  border: 1px solid rgba(9, 32, 64, 0.08);
+  border-radius: 22px;
+  background: #fbfdff;
+}
+
+.discipline-content-status {
+  color: #5f728f;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.discipline-content-card h4 {
+  margin: 0.8rem 0 0.45rem;
+  color: var(--navy);
+  font-size: 1rem;
+}
+
+.discipline-content-card p {
+  font-size: 0.9rem;
+}
+
+@media (max-width: 980px) {
+  .discipline-content-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .discipline-tabs-shell {
+    border-radius: 25px;
+  }
+
+  .discipline-tabs {
+    padding: 0.7rem;
+  }
+
+  .discipline-tab {
+    max-width: 245px;
+    white-space: normal;
+  }
+
+  .discipline-detail-head {
+    gap: 0.8rem;
+  }
+
+  .discipline-detail-head .icon-wrap {
+    width: 48px;
+    height: 48px;
+    flex-basis: 48px;
+    border-radius: 15px;
+  }
+
+  .discipline-content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .discipline-content-card {
+    min-height: 0;
+  }
+}
+/* =========================================================
+   CARRUSEL Y MODALES DE DISCIPLINAS
+   ========================================================= */
+
+.discipline-section {
+  padding-bottom: 2rem;
+}
+
+.discipline-showcase-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 1.8rem;
+}
+
+.discipline-showcase-heading .section-head {
+  max-width: 760px;
+  margin: 0;
+}
+
+.discipline-carousel-controls {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.discipline-carousel-count {
+  margin-right: 0.2rem;
+  color: #5f728f;
+  font-size: 0.78rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.carousel-control {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid rgba(9, 32, 64, 0.12);
+  border-radius: 50%;
+  color: var(--navy);
+  background: white;
+  box-shadow: 0 8px 20px rgba(6, 30, 83, 0.08);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    color 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.carousel-control:hover {
+  border-color: transparent;
+  color: white;
+  background: var(--blue);
+  transform: translateY(-2px);
+}
+
+.discipline-carousel {
+  display: grid;
+  grid-auto-columns: minmax(280px, calc((100% - 2.5rem) / 3));
+  grid-auto-flow: column;
+  gap: 1.25rem;
+  overflow-x: auto;
+  padding: 0.35rem 0.2rem 1.2rem;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-color: rgba(10, 88, 216, 0.45) rgba(10, 88, 216, 0.08);
+  scrollbar-width: thin;
+}
+
+.discipline-carousel::-webkit-scrollbar {
+  height: 8px;
+}
+
+.discipline-carousel::-webkit-scrollbar-track {
+  border-radius: 999px;
+  background: rgba(10, 88, 216, 0.08);
+}
+
+.discipline-carousel::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(10, 88, 216, 0.45);
+}
+
+.discipline-carousel-card {
+  display: flex;
+  min-height: 410px;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid rgba(9, 32, 64, 0.09);
+  border-radius: 28px;
+  color: inherit;
+  background: white;
+  box-shadow: 0 18px 38px rgba(6, 30, 83, 0.1);
+  font: inherit;
+  text-align: left;
+  scroll-snap-align: start;
+  cursor: pointer;
+  transition:
+    transform 0.24s ease,
+    box-shadow 0.24s ease,
+    border-color 0.24s ease;
+}
+
+.discipline-carousel-card:hover {
+  border-color: rgba(10, 88, 216, 0.28);
+  box-shadow: 0 24px 46px rgba(6, 30, 83, 0.17);
+  transform: translateY(-8px);
+}
+
+.discipline-card-visual {
+  position: relative;
+  display: flex;
+  min-height: 172px;
+  align-items: flex-end;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 1.25rem;
+  color: white;
+}
+
+.discipline-card-visual::before,
+.discipline-card-visual::after {
+  position: absolute;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 50%;
+  content: "";
+}
+
+.discipline-card-visual::before {
+  width: 190px;
+  height: 190px;
+  top: -105px;
+  right: -45px;
+}
+
+.discipline-card-visual::after {
+  width: 108px;
+  height: 108px;
+  bottom: -66px;
+  right: 38px;
+}
+
+.tone-blue .discipline-card-visual,
+.discipline-modal.tone-blue .discipline-modal-hero {
+  background: linear-gradient(135deg, #083c96, #1675e8 56%, #26c8ef);
+}
+
+.tone-navy .discipline-card-visual,
+.discipline-modal.tone-navy .discipline-modal-hero {
+  background: linear-gradient(135deg, #071d52, #123d96 58%, #1b78d8);
+}
+
+.tone-aqua .discipline-card-visual,
+.discipline-modal.tone-aqua .discipline-modal-hero {
+  background: linear-gradient(135deg, #006a9b, #05a7c7 58%, #63dff0);
+}
+
+.tone-teal .discipline-card-visual,
+.discipline-modal.tone-teal .discipline-modal-hero {
+  background: linear-gradient(135deg, #00665d, #079e91 56%, #3fc8b5);
+}
+
+.tone-violet .discipline-card-visual,
+.discipline-modal.tone-violet .discipline-modal-hero {
+  background: linear-gradient(135deg, #483184, #7450c9 55%, #b28bf0);
+}
+
+.tone-orange .discipline-card-visual,
+.discipline-modal.tone-orange .discipline-modal-hero {
+  background: linear-gradient(135deg, #b64712, #e97520 58%, #f8bd4e);
+}
+
+.tone-red .discipline-card-visual,
+.discipline-modal.tone-red .discipline-modal-hero {
+  background: linear-gradient(135deg, #8f1f3c, #c74154 57%, #f17f70);
+}
+
+.discipline-card-index,
+.discipline-card-type,
+.discipline-card-icon {
+  position: relative;
+  z-index: 1;
+}
+
+.discipline-card-index {
+  align-self: flex-start;
+  padding: 0.32rem 0.58rem;
+  border: 1px solid rgba(255, 255, 255, 0.23);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
+.discipline-card-icon {
+  display: grid;
+  width: 62px;
+  height: 62px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(8px);
+}
+
+.discipline-card-icon .icon {
+  width: 30px;
+  height: 30px;
+}
+
+.discipline-card-type {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 1.35rem;
+  max-width: 58%;
+  font-size: 0.76rem;
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: right;
+}
+
+.discipline-card-content {
+  display: flex;
+  height: 100%;
+  flex: 1;
+  flex-direction: column;
+  padding: 1.4rem;
+}
+
+.discipline-card-content h3 {
+  margin: 0;
+  color: var(--navy);
+  font-size: 1.45rem;
+  line-height: 1.12;
+  letter-spacing: -0.045em;
+}
+
+.discipline-card-content > p {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 0.75rem 0 1rem;
+  color: var(--muted);
+  font-size: 0.91rem;
+  line-height: 1.55;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.discipline-card-focus {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.discipline-card-focus span {
+  padding: 0.32rem 0.54rem;
+  border-radius: 999px;
+  color: #416082;
+  background: #edf4fc;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+.discipline-card-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 1.25rem;
+  color: var(--blue);
+  font-size: 0.87rem;
+  font-weight: 900;
+}
+
+.discipline-card-action span {
+  font-size: 1.1rem;
+  transition: transform 0.18s ease;
+}
+
+.discipline-carousel-card:hover .discipline-card-action span {
+  transform: translateX(4px);
+}
+
+.discipline-info-band {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  width: min(1160px, calc(100% - 2rem));
+  margin: 0 auto 5.5rem;
+  padding: clamp(1.5rem, 4vw, 2.6rem);
+  border: 1px solid rgba(10, 88, 216, 0.12);
+  border-radius: 30px;
+  background: linear-gradient(120deg, #eff7ff, #fff);
+}
+
+.discipline-info-band > div {
+  max-width: 760px;
+}
+
+.discipline-info-band h2 {
+  margin: 0.55rem 0;
+  color: var(--navy);
+  font-size: clamp(1.45rem, 3vw, 2.25rem);
+  letter-spacing: -0.045em;
+}
+
+.discipline-info-band p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.discipline-modal-backdrop {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  overflow-y: auto;
+  place-items: center;
+  padding: 1.25rem;
+  background: rgba(5, 20, 53, 0.68);
+  backdrop-filter: blur(7px);
+  animation: discipline-fade-in 0.2s ease both;
+}
+
+.discipline-modal {
+  position: relative;
+  width: min(1010px, 100%);
+  max-height: min(860px, calc(100dvh - 2.5rem));
+  overflow: auto;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 34px;
+  background: white;
+  box-shadow: 0 30px 90px rgba(2, 12, 39, 0.46);
+  animation: discipline-modal-in 0.24s ease both;
+}
+
+.discipline-modal-close {
+  position: absolute;
+  z-index: 2;
+  top: 1rem;
+  right: 1rem;
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  color: white;
+  background: rgba(4, 23, 63, 0.2);
+  font-size: 1.85rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 0.18s ease,
+    transform 0.18s ease;
+}
+
+.discipline-modal-close:hover {
+  background: rgba(4, 23, 63, 0.42);
+  transform: rotate(90deg);
+}
+
+.discipline-modal-hero {
+  position: relative;
+  min-height: 244px;
+  overflow: hidden;
+  padding: clamp(1.6rem, 4vw, 2.9rem);
+  padding-right: clamp(4.5rem, 8vw, 6.5rem);
+  color: white;
+}
+
+.discipline-modal-hero::after {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  top: -170px;
+  right: -90px;
+  border: 1px solid rgba(255, 255, 255, 0.27);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 35px rgba(255, 255, 255, 0.05),
+    0 0 0 70px rgba(255, 255, 255, 0.04);
+  content: "";
+}
+
+.discipline-modal-icon,
+.discipline-modal-hero > span,
+.discipline-modal-hero h2,
+.discipline-modal-hero p {
+  position: relative;
+  z-index: 1;
+}
+
+.discipline-modal-icon {
+  display: grid;
+  width: 58px;
+  height: 58px;
+  margin-bottom: 1rem;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.discipline-modal-icon .icon {
+  width: 29px;
+  height: 29px;
+}
+
+.discipline-modal-hero > span {
+  font-size: 0.76rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.discipline-modal-hero h2 {
+  margin: 0.4rem 0 0.65rem;
+  font-size: clamp(2rem, 5vw, 3.35rem);
+  line-height: 0.98;
+  letter-spacing: -0.065em;
+}
+
+.discipline-modal-hero p {
+  max-width: 670px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+}
+
+.discipline-modal-body {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.64fr) minmax(0, 1.65fr);
+  gap: clamp(1.15rem, 4vw, 2.3rem);
+  padding: clamp(1.3rem, 4vw, 2.5rem);
+}
+
+.discipline-audience-card {
+  align-self: start;
+  padding: 1.25rem;
+  border: 1px solid rgba(9, 32, 64, 0.08);
+  border-radius: 22px;
+  background: #f4f8fd;
+}
+
+.discipline-audience-card > span,
+.discipline-modal-kicker {
+  color: #577190;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.discipline-audience-card p {
+  margin: 0.55rem 0 0;
+  color: var(--navy);
+  font-size: 1rem;
+  font-weight: 720;
+  line-height: 1.55;
+}
+
+.discipline-modal-main {
+  min-width: 0;
+}
+
+.discipline-modal-section + .discipline-modal-section {
+  margin-top: 1.8rem;
+}
+
+.discipline-modal-section h3 {
+  margin: 0.35rem 0 0.9rem;
+  color: var(--navy);
+  font-size: 1.4rem;
+  letter-spacing: -0.04em;
+}
+
+.discipline-focus-list {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.discipline-focus-list span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: #294768;
+  font-size: 0.94rem;
+  font-weight: 720;
+}
+
+.discipline-focus-list .icon {
+  width: 18px;
+  height: 18px;
+  color: var(--blue);
+}
+
+.discipline-modal-content-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin-top: 0.75rem;
+}
+
+.discipline-modal-content-grid article {
+  min-height: 128px;
+  padding: 1rem;
+  border: 1px solid rgba(9, 32, 64, 0.08);
+  border-radius: 18px;
+  background: #fbfdff;
+}
+
+.discipline-modal-content-grid article > span {
+  color: var(--blue);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.discipline-modal-content-grid h4 {
+  margin: 0.45rem 0 0.25rem;
+  color: var(--navy);
+  font-size: 0.98rem;
+}
+
+.discipline-modal-content-grid p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.discipline-modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 1.9rem;
+}
+
+.discipline-carousel-card:focus-visible,
+.carousel-control:focus-visible,
+.discipline-modal-close:focus-visible {
+  outline: 3px solid #4ecff2;
+  outline-offset: 3px;
+}
+
+@keyframes discipline-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes discipline-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 980px) {
+  .discipline-carousel {
+    grid-auto-columns: minmax(290px, calc((100% - 1.25rem) / 2));
+  }
+
+  .discipline-modal-body {
+    grid-template-columns: 1fr;
+  }
+
+  .discipline-audience-card {
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+  }
+
+  .discipline-audience-card p {
+    margin: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .discipline-showcase-heading,
+  .discipline-info-band {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .discipline-showcase-heading {
+    gap: 1rem;
+  }
+
+  .discipline-carousel {
+    grid-auto-columns: minmax(280px, 88%);
+  }
+
+  .discipline-carousel-card {
+    min-height: 390px;
+  }
+
+  .discipline-info-band {
+    margin-bottom: 3.5rem;
+    border-radius: 24px;
+  }
+
+  .discipline-info-band .btn-secondary {
+    width: 100%;
+  }
+
+  .discipline-modal-backdrop {
+    place-items: end center;
+    padding: 0.5rem;
+  }
+
+  .discipline-modal {
+    max-height: calc(100dvh - 1rem);
+    border-radius: 28px 28px 20px 20px;
+  }
+
+  .discipline-modal-hero {
+    min-height: 215px;
+  }
+
+  .discipline-modal-content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .discipline-audience-card {
+    display: block;
+  }
+
+  .discipline-audience-card p {
+    margin: 0.55rem 0 0;
+  }
+
+  .discipline-modal-actions {
+    flex-direction: column;
+  }
+
+  .discipline-modal-actions .btn-primary,
+  .discipline-modal-actions .btn-secondary {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .discipline-carousel,
+  .discipline-carousel-card,
+  .carousel-control,
+  .discipline-card-action span,
+  .discipline-modal-close {
+    scroll-behavior: auto;
+    transition: none;
+  }
+
+  .discipline-modal-backdrop,
+  .discipline-modal {
+    animation: none;
+  }
+}
+/* =========================================================
+   CARRUSEL PAGINADO: 3 DISCIPLINAS POR VISTA
+   ========================================================= */
+
+.discipline-carousel-meta {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.65rem;
+  color: #6c7f99;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.discipline-carousel-meta > span + span {
+  padding-left: 0.65rem;
+  border-left: 1px solid rgba(9, 32, 64, 0.13);
+}
+
+.discipline-carousel-shell {
+  position: relative;
+  padding: 0.35rem 4.25rem 0;
+}
+
+.discipline-carousel-viewport {
+  overflow: hidden;
+  padding: 0.35rem 0.15rem 0.85rem;
+}
+
+.discipline-carousel-page {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  animation: discipline-page-in 0.3s ease both;
+}
+
+.discipline-carousel-page.cards-1 {
+  grid-template-columns: minmax(280px, 360px);
+  justify-content: center;
+}
+
+.carousel-side-control {
+  position: absolute;
+  z-index: 2;
+  top: calc(50% - 0.25rem);
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border: 1px solid rgba(9, 32, 64, 0.12);
+  border-radius: 50%;
+  color: var(--navy);
+  background: white;
+  box-shadow: 0 14px 30px rgba(6, 30, 83, 0.16);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition:
+    transform 0.18s ease,
+    color 0.18s ease,
+    background 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.carousel-side-control-prev {
+  left: 0;
+}
+
+.carousel-side-control-next {
+  right: 0;
+}
+
+.carousel-side-control:hover {
+  color: white;
+  background: var(--blue);
+  box-shadow: 0 18px 34px rgba(10, 88, 216, 0.3);
+  transform: translateY(-50%) scale(1.06);
+}
+
+.discipline-carousel-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-top: 0.45rem;
+}
+
+.discipline-carousel-pagination button {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: #c7d6e8;
+  cursor: pointer;
+  transition:
+    width 0.2s ease,
+    background 0.2s ease;
+}
+
+.discipline-carousel-pagination button.is-active {
+  width: 28px;
+  background: linear-gradient(90deg, var(--blue), var(--aqua));
+}
+
+.carousel-side-control:focus-visible,
+.discipline-carousel-pagination button:focus-visible {
+  outline: 3px solid #4ecff2;
+  outline-offset: 3px;
+}
+
+@keyframes discipline-page-in {
+  from {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 980px) {
+  .discipline-carousel-page {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .discipline-showcase-heading {
+    align-items: flex-start;
+  }
+
+  .discipline-carousel-meta {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .discipline-carousel-shell {
+    padding-right: 3.1rem;
+    padding-left: 3.1rem;
+  }
+
+  .discipline-carousel-page,
+  .discipline-carousel-page.cards-1 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .carousel-side-control {
+    width: 42px;
+    height: 42px;
+    font-size: 1.35rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .discipline-carousel-page {
+    animation: none;
+  }
+
+  .carousel-side-control,
+  .discipline-carousel-pagination button {
+    transition: none;
+  }
+}
+/* =========================================================
+   AJUSTE DE MODALES Y BOTONES CIRCULARES
+   ========================================================= */
+
+/* El modal crece con su contenido y ya no tiene scroll interno. */
+.discipline-modal-backdrop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+.discipline-modal {
+  max-height: none;
+  overflow: visible;
+  margin-block: auto;
+}
+
+/* Centrado óptico de X y flechas dentro de los círculos. */
+.discipline-modal-close,
+.carousel-side-control,
+.carousel-control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+}
+
+.discipline-modal-close > span,
+.carousel-side-control > span,
+.carousel-control > span {
+  display: block;
+  position: relative;
+  line-height: 1;
+}
+
+.discipline-modal-close > span {
+  top: -2px;
+}
+
+.carousel-side-control > span,
+.carousel-control > span {
+  top: -1px;
+}
+/* =========================================================
+   MODAL SIN SEGUNDO SCROLL
+   ========================================================= */
+
+.discipline-page {
+  position: relative;
+}
+
+.discipline-modal-backdrop {
+  position: absolute;
+  right: 0;
+  bottom: auto;
+  left: 0;
+  min-height: 100dvh;
+  height: auto;
+  overflow: visible;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 1.25rem;
+}
+
+.discipline-modal {
+  max-height: none;
+  overflow: visible;
+  margin: 0;
+}
+
+/* Centrado de X y flechas dentro de sus círculos. */
+.discipline-modal-close,
+.carousel-side-control,
+.carousel-control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+}
+
+.discipline-modal-close > span,
+.carousel-side-control > span,
+.carousel-control > span {
+  display: block;
+  position: relative;
+  line-height: 1;
+}
+
+.discipline-modal-close > span {
+  top: -2px;
+}
+
+.carousel-side-control > span,
+.carousel-control > span {
+  top: -1px;
+}
+
+@media (max-width: 700px) {
+  .discipline-modal-backdrop {
+    padding: 0.5rem;
+  }
+}
+/* El fondo del modal cubre toda la pantalla sin crear otro scroll. */
+.discipline-modal-backdrop {
+  z-index: 100;
+  isolation: isolate;
+  background: transparent;
+  backdrop-filter: none;
+}
+
+.discipline-modal-backdrop::before {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  background: rgba(5, 20, 53, 0.68);
+  backdrop-filter: blur(7px);
+  content: "";
+  pointer-events: none;
+}
+
+.discipline-modal {
+  position: relative;
+  z-index: 1;
 }

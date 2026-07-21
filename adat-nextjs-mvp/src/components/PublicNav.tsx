@@ -81,6 +81,10 @@ export function PublicNav() {
           Liga Estatal de Natación
         </Link>
 
+        <Link href="/disciplinas" onClick={closeMenu}>
+          Disciplinas
+        </Link>
+
         <Link href="/competencias" onClick={closeMenu}>
           Competencias
         </Link>

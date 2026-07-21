@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@/components/icons";
-import { PublicFooter } from "@/components/PublicFooter";
 import { PublicNav } from "@/components/PublicNav";
+import { PublicFooter } from "@/components/PublicFooter";
 
 const programas = [
   {
@@ -100,10 +100,14 @@ export default function Home() {
       </section>
 
       <div className="search-band" aria-label="Accesos rápidos">
-        <div className="search-field">
-          <small>Disciplina</small>
-          <strong>Natación / Acuáticos</strong>
-        </div>
+        <Link
+          href="/disciplinas"
+          className="search-field search-link"
+          aria-label="Explorar disciplinas deportivas"
+        >
+          <small>Disciplinas</small>
+          <strong>7 categorías deportivas</strong>
+        </Link>
 
         <div className="search-field">
           <small>Sede</small>
@@ -169,6 +173,7 @@ export default function Home() {
           <div className="timeline-card">
             <strong>Corto plazo</strong>
             <h3>Captación y posicionamiento</h3>
+
             <ul>
               <li>Incrementar número de atletas activos.</li>
               <li>Posicionar ADAT en redes sociales.</li>
@@ -179,6 +184,7 @@ export default function Home() {
           <div className="timeline-card">
             <strong>Mediano plazo</strong>
             <h3>Competencia y alianzas</h3>
+
             <ul>
               <li>
                 Participación constante en competencias estatales y nacionales.
@@ -191,6 +197,7 @@ export default function Home() {
           <div className="timeline-card">
             <strong>Largo plazo</strong>
             <h3>Referencia nacional</h3>
+
             <ul>
               <li>Ser referencia nacional.</li>
               <li>Exportar atletas a nivel competitivo alto.</li>
