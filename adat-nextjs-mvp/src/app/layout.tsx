@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { RouteLoader } from "@/components/RouteLoader";
 
 export const metadata: Metadata = {
   title: "ADAT | Asociación de Deportes Acuáticos de Tlaxcala",
@@ -12,7 +13,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="es">
-      <body>{children}</body>
+      <body>
+        <RouteLoader />
+        {children}
+      </body>
     </html>
   );
 }
