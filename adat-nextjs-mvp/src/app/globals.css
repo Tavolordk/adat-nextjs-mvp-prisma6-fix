@@ -45,6 +45,9 @@
   --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
   --font-body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
 
+  /* Movimiento */
+  --ease: cubic-bezier(0.2, 0.6, 0.2, 1);
+
   /* Paneles oscuros: profundidad tonal muy sutil (sin patrón) */
   --lanes: linear-gradient(
     180deg,
@@ -105,6 +108,12 @@ h3,
 .hero h1,
 .page-hero h1 {
   font-family: var(--font-display);
+  text-wrap: balance;
+}
+
+::selection {
+  background: var(--marino-2);
+  color: white;
 }
 
 button,
@@ -138,16 +147,22 @@ button,
   justify-content: center;
   gap: 0.5rem;
   min-height: 48px;
-  padding: 0.8rem 1.35rem;
+  padding: 0.8rem 1.4rem;
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
   font-weight: 600;
   letter-spacing: 0.01em;
   cursor: pointer;
   transition:
-    background 0.15s ease,
-    border-color 0.15s ease,
-    color 0.15s ease;
+    background 0.16s var(--ease),
+    border-color 0.16s var(--ease),
+    color 0.16s var(--ease),
+    transform 0.1s var(--ease);
+}
+.btn-primary:active,
+.btn-secondary:active,
+.btn-ghost:active {
+  transform: translateY(1px);
 }
 .btn-primary,
 .nav-cta {
@@ -166,6 +181,7 @@ button,
 }
 .btn-secondary:hover {
   border-color: var(--marino);
+  background: var(--paper);
 }
 .btn-ghost {
   background: transparent;
@@ -218,15 +234,31 @@ button,
   flex-wrap: wrap;
 }
 .public-nav nav a {
-  padding: 0.6rem 0.85rem;
+  position: relative;
+  padding: 0.6rem 0.75rem;
   border-radius: var(--radius-sm);
   color: #2b3f57;
   font-weight: 500;
   font-size: 0.93rem;
 }
-.public-nav nav a:hover {
-  background: var(--soft);
+.public-nav nav a:not(.nav-cta)::after {
+  content: "";
+  position: absolute;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.28rem;
+  height: 2px;
+  background: var(--blue);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.18s var(--ease);
+}
+.public-nav nav a:not(.nav-cta):hover {
+  background: transparent;
   color: var(--marino);
+}
+.public-nav nav a:not(.nav-cta):hover::after {
+  transform: scaleX(1);
 }
 .public-nav nav .nav-cta {
   margin-left: 0.4rem;
@@ -369,6 +401,7 @@ button,
   font-size: 2rem;
   font-weight: 700;
   line-height: 1;
+  font-variant-numeric: tabular-nums;
 }
 .stat span {
   display: block;
@@ -463,10 +496,15 @@ button,
   border-radius: var(--radius);
   padding: 1.4rem;
   box-shadow: none;
-  transition: border-color 0.15s ease;
+  transition:
+    border-color 0.18s var(--ease),
+    box-shadow 0.18s var(--ease),
+    transform 0.18s var(--ease);
 }
 .card:hover {
   border-color: #b9c8d8;
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-2px);
 }
 .card .icon-wrap {
   width: 44px;
@@ -475,7 +513,8 @@ button,
   display: grid;
   place-items: center;
   color: var(--blue);
-  background: var(--soft);
+  background: white;
+  border: 1px solid var(--line);
   margin-bottom: 1.1rem;
 }
 .icon {
@@ -485,10 +524,11 @@ button,
 .card h3 {
   margin: 0 0 0.5rem;
   color: var(--marino);
-  font-size: 1.25rem;
+  font-family: var(--font-body);
+  font-size: 1.02rem;
   font-weight: 600;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
 }
 .card p,
 .timeline-card li {
@@ -563,10 +603,11 @@ button,
 .timeline-card h3 {
   margin: 0.4rem 0;
   color: var(--marino);
-  font-size: 1.3rem;
+  font-family: var(--font-body);
+  font-size: 1.08rem;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.01em;
+  text-transform: none;
+  letter-spacing: 0;
 }
 .timeline-card ul {
   margin: 0.7rem 0 0;
@@ -625,34 +666,131 @@ button,
 /* ---------- Footer ---------- */
 
 .footer {
-  padding: 2.25rem clamp(1rem, 5vw, 5rem);
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  align-items: center;
-  flex-wrap: wrap;
-  color: var(--muted);
-  border-top: 1px solid var(--line);
-  background: white;
+  position: relative;
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(1rem, 5vw, 5rem) 0;
+  display: block;
+  color: rgba(255, 255, 255, 0.72);
+  border-top: 3px solid var(--blue);
+  background: var(--marino-2);
+  background-image: var(--lanes);
   font-size: 0.93rem;
+  overflow: hidden;
 }
 .footer strong {
-  color: var(--marino);
+  color: white;
 }
+.footer a:hover {
+  color: white;
+}
+
+/* Rejilla principal: marca + columnas de enlaces + contacto */
+.footer-grid {
+  display: grid;
+  grid-template-columns: minmax(240px, 1.3fr) repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.footer-brand .brand,
+.footer-brand strong {
+  color: white;
+}
+.footer-brand img {
+  width: 72px;
+  background: white;
+  border-radius: var(--radius-sm);
+  padding: 0.3rem;
+}
+.footer-brand p {
+  margin: 1rem 0 0;
+  max-width: 34ch;
+  color: rgba(255, 255, 255, 0.62);
+  line-height: 1.65;
+}
+.footer-brand::after {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 26px;
+  margin-top: 1.4rem;
+  background: var(--lane-glyph);
+}
+
+.footer-col h4 {
+  margin: 0 0 1rem;
+  color: white;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.footer-col ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.6rem;
+}
+.footer-col a {
+  color: rgba(255, 255, 255, 0.68);
+  transition: color 0.15s var(--ease);
+}
+.footer-col a:hover {
+  color: white;
+}
+
+/* Contacto: conserva .contact-row */
 .contact-row {
-  display: flex;
-  gap: 1.25rem;
-  flex-wrap: wrap;
+  display: grid;
+  gap: 0.7rem;
 }
 .contact-row span {
   display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
+  align-items: flex-start;
+  gap: 0.55rem;
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.5;
 }
 .contact-row .icon {
   width: 17px;
   height: 17px;
-  color: var(--blue);
+  margin-top: 2px;
+  flex: 0 0 auto;
+  color: var(--aqua);
+}
+
+/* Barra legal inferior */
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1.25rem 0 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+}
+.footer-bottom nav {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+.footer-bottom a {
+  color: rgba(255, 255, 255, 0.6);
+}
+.footer-bottom a:hover {
+  color: white;
+}
+
+@media (max-width: 980px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
 }
 
 /* ---------- Formularios y login ---------- */
@@ -702,11 +840,17 @@ button,
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
   padding: 0.8rem 0.9rem;
-  background: white;
+  background: #fcfdfe;
   outline: none;
   transition:
-    border-color 0.15s ease,
-    box-shadow 0.15s ease;
+    border-color 0.15s var(--ease),
+    box-shadow 0.15s var(--ease),
+    background 0.15s var(--ease);
+}
+.form-field input:hover,
+.form-field select:hover,
+.form-field textarea:hover {
+  border-color: #b9c8d8;
 }
 .form-field textarea {
   min-height: 120px;
@@ -897,6 +1041,7 @@ td {
   text-align: left;
   vertical-align: top;
   font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
 }
 th {
   color: var(--muted);
@@ -904,6 +1049,7 @@ th {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.07em;
+  border-bottom: 2px solid #c8d4e0;
 }
 td strong {
   color: var(--marino);
@@ -915,7 +1061,7 @@ tbody tr:hover td {
 .badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.4rem;
   border-radius: 4px;
   padding: 0.3rem 0.55rem;
   font-weight: 600;
@@ -925,6 +1071,14 @@ tbody tr:hover td {
   background: var(--soft);
   color: var(--blue);
   border: 1px solid transparent;
+}
+.badge::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex: 0 0 auto;
 }
 .badge.NUEVO {
   background: #eaf3fc;
@@ -1145,10 +1299,11 @@ tbody tr:hover td {
 .event-card h3 {
   margin: 1rem 0 0.5rem;
   color: var(--marino);
-  font-size: 1.25rem;
+  font-family: var(--font-body);
+  font-size: 1.02rem;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.01em;
+  text-transform: none;
+  letter-spacing: 0;
 }
 .step-card p,
 .event-card p,
@@ -1217,10 +1372,15 @@ tbody tr:hover td {
   border-radius: var(--radius);
   background: white;
   box-shadow: none;
-  transition: border-color 0.15s ease;
+  transition:
+    border-color 0.18s var(--ease),
+    box-shadow 0.18s var(--ease),
+    transform 0.18s var(--ease);
 }
 .event-card:hover {
   border-color: #b9c8d8;
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-2px);
 }
 .event-card .icon-wrap {
   display: grid;
@@ -1230,7 +1390,8 @@ tbody tr:hover td {
   place-items: center;
   border-radius: var(--radius-sm);
   color: var(--blue);
-  background: var(--soft);
+  background: white;
+  border: 1px solid var(--line);
 }
 .event-status,
 .event-pending {
@@ -2619,13 +2780,19 @@ body {
     justify-self: stretch;
   }
   .footer {
+    padding: 2rem 0.9rem 0;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+  .footer-bottom {
     flex-direction: column;
     align-items: flex-start;
-    padding: 1.5rem 0.9rem;
+    gap: 0.75rem;
   }
   .contact-row {
     width: 100%;
-    flex-direction: column;
     gap: 0.65rem;
   }
 
@@ -2984,8 +3151,16 @@ body {
   .btn-secondary,
   .btn-ghost,
   .card,
-  .event-card {
+  .event-card,
+  .public-nav nav a::after {
     transition: none;
+  }
+  .card:hover,
+  .event-card:hover,
+  .btn-primary:active,
+  .btn-secondary:active,
+  .btn-ghost:active {
+    transform: none;
   }
   .discipline-modal-backdrop,
   .discipline-modal,
