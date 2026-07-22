@@ -19,7 +19,10 @@ export function PublicFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="footer">
+    <>
+      <div className="footer-wave" aria-hidden="true" />
+
+      <footer className="footer">
       <div className="footer-grid">
         <div className="footer-brand">
           <Link href="/" className="brand" aria-label="ADAT inicio">
@@ -87,6 +90,7 @@ export function PublicFooter() {
           <Link href="/login">Admin</Link>
         </nav>
       </div>
-    </footer>
+      </footer>
+    </>
   );
 }

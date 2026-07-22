@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Swimmer } from "@/components/WaterFx";
 
 type PublicPageHeroProps = {
   eyebrow: ReactNode;
@@ -29,6 +30,14 @@ export function PublicPageHero({
         <span />
         <span />
         <span />
+
+        <div className="pool-swimmer">
+          <Swimmer />
+        </div>
+
+        <div className="pool-swimmer">
+          <Swimmer />
+        </div>
       </div>
     </section>
   );

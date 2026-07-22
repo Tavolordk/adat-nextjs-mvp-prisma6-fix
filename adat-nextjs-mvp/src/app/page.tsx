@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@/components/icons";
+import { Swimmer } from "@/components/WaterFx";
+import { SplashIntro } from "@/components/SplashIntro";
 import { PublicNav } from "@/components/PublicNav";
 import { PublicFooter } from "@/components/PublicFooter";
 
@@ -58,6 +60,8 @@ const valores = [
 export default function Home() {
   return (
     <main className="public-page">
+      <SplashIntro />
+
       <PublicNav />
 
       <section className="hero">
@@ -98,6 +102,12 @@ export default function Home() {
               height={300}
               priority
             />
+          </div>
+
+          <div className="pool-lane" aria-hidden="true">
+            <div className="pool-swimmer">
+              <Swimmer />
+            </div>
           </div>
 
           <div className="stat-strip">
