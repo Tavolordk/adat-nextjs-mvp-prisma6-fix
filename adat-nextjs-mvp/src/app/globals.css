@@ -45,11 +45,18 @@
   --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
   --font-body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
 
-  /* Firma: carriles de alberca sobre paneles oscuros */
-  --lanes: repeating-linear-gradient(
+  /* Paneles oscuros: profundidad tonal muy sutil (sin patrón) */
+  --lanes: linear-gradient(
     180deg,
-    transparent 0 34px,
-    rgba(255, 255, 255, 0.09) 34px 36px
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0) 220px
+  );
+
+  /* Firma: glifo de tres carriles, discreto, en esquina */
+  --lane-glyph: repeating-linear-gradient(
+    180deg,
+    rgba(47, 143, 230, 0.9) 0 3px,
+    transparent 3px 12px
   );
 }
 
@@ -305,8 +312,8 @@ button,
 /* Panel del hero: bloque marino con carriles de alberca */
 .hero-card {
   border-radius: var(--radius-lg);
-  padding: 1.4rem;
-  min-height: 500px;
+  padding: 1.25rem;
+  min-height: 0;
   background: var(--marino-2);
   background-image: var(--lanes);
   box-shadow: var(--shadow);
@@ -315,27 +322,24 @@ button,
   border: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 1rem;
 }
 .hero-card::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 6px;
-  border: 0;
-  border-radius: 0;
-  background: var(--blue);
+  content: none;
 }
 .hero-card .logo-panel {
   position: relative;
   z-index: 1;
+  flex: 1;
+  min-height: 320px;
   background: white;
   border-radius: var(--radius);
-  padding: 1.5rem;
+  padding: 2rem;
   display: grid;
   place-items: center;
+}
+.logo-panel img {
+  max-width: min(360px, 82%);
 }
 .logo-panel img {
   filter: none;
@@ -343,7 +347,7 @@ button,
 .stat-strip {
   position: relative;
   z-index: 1;
-  margin-top: 1rem;
+  margin-top: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1px;
@@ -502,13 +506,28 @@ button,
   align-items: stretch;
 }
 .blue-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
   border-radius: var(--radius-lg);
-  padding: clamp(1.6rem, 4vw, 2.8rem);
+  padding: clamp(1.75rem, 4vw, 3.25rem);
   color: white;
   background: var(--marino-2);
   background-image: var(--lanes);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: none;
+}
+.blue-panel::after {
+  content: "";
+  position: absolute;
+  right: clamp(1.5rem, 4vw, 2.5rem);
+  bottom: clamp(1.4rem, 4vw, 2.25rem);
+  width: 76px;
+  height: 28px;
+  background: var(--lane-glyph);
+  pointer-events: none;
 }
 .blue-panel h2 {
   font-size: clamp(1.9rem, 4vw, 3rem);
@@ -557,9 +576,11 @@ button,
 /* ---------- CTA ---------- */
 
 .cta-section {
+  position: relative;
   margin: 4rem clamp(1rem, 5vw, 5rem) 5rem;
   border-radius: var(--radius-lg);
-  padding: clamp(1.75rem, 5vw, 3.5rem);
+  padding: clamp(2rem, 5vw, 3.5rem);
+  padding-left: clamp(2.25rem, 5vw, 4rem);
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
@@ -568,8 +589,17 @@ button,
   background: var(--marino-2);
   background-image: var(--lanes);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-top: 6px solid var(--blue);
+  overflow: hidden;
   box-shadow: var(--shadow);
+}
+.cta-section::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: clamp(1.75rem, 5vw, 3rem);
+  bottom: clamp(1.75rem, 5vw, 3rem);
+  width: 4px;
+  background: var(--blue);
 }
 .cta-section h2 {
   margin: 0 0 0.7rem;
@@ -1029,7 +1059,6 @@ tbody tr:hover td {
   overflow: hidden;
   background: var(--marino-2);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-top: 6px solid var(--blue);
   box-shadow: var(--shadow-soft);
 }
 .page-hero-water::before {
@@ -1041,7 +1070,17 @@ tbody tr:hover td {
   border-radius: 0;
 }
 .page-hero-water::after {
-  content: none;
+  content: "";
+  position: absolute;
+  left: 1.5rem;
+  right: 1.5rem;
+  top: 1.35rem;
+  height: 3px;
+  border: 0;
+  border-radius: 0;
+  width: auto;
+  bottom: auto;
+  background: var(--blue);
 }
 .page-hero-water span {
   position: absolute;
