@@ -3959,3 +3959,118 @@ body {
     animation: none;
   }
 }
+
+/* =========================================================
+   NADADOR ARTICULADO: brazada de crol y patada de aleteo
+   ========================================================= */
+
+/* los pivotes viven en los <g> con translate; aquí solo rotamos */
+.sw-arm-u,
+.sw-arm-d,
+.sw-leg-u,
+.sw-leg-d {
+  transform-box: fill-box;
+  transform-origin: 0 0;
+}
+
+/* Brazada de crol: alcanzar al frente → jalar hacia atrás → recobrar.
+   Los dos brazos usan el mismo ciclo con medio periodo de desfase. */
+.sw-arm-u {
+  transform-origin: 0 100%;
+  animation: sw-stroke-u 1.15s ease-in-out infinite;
+}
+.sw-arm-d {
+  animation: sw-stroke-d 1.15s ease-in-out infinite;
+  animation-delay: -0.575s;
+}
+
+@keyframes sw-stroke-u {
+  0%,
+  100% {
+    transform: rotate(16deg);
+  }
+  38% {
+    transform: rotate(-48deg);
+  }
+  62% {
+    transform: rotate(-98deg);
+  }
+  82% {
+    transform: rotate(-40deg);
+  }
+}
+@keyframes sw-stroke-d {
+  0%,
+  100% {
+    transform: rotate(-16deg);
+  }
+  38% {
+    transform: rotate(48deg);
+  }
+  62% {
+    transform: rotate(98deg);
+  }
+  82% {
+    transform: rotate(40deg);
+  }
+}
+
+/* Patada de aleteo: rápida, alternada */
+.sw-leg-u {
+  animation: sw-kick 0.4s ease-in-out infinite alternate;
+}
+.sw-leg-d {
+  animation: sw-kick-inv 0.4s ease-in-out infinite alternate;
+}
+@keyframes sw-kick {
+  from {
+    transform: rotate(-13deg);
+  }
+  to {
+    transform: rotate(13deg);
+  }
+}
+@keyframes sw-kick-inv {
+  from {
+    transform: rotate(13deg);
+  }
+  to {
+    transform: rotate(-13deg);
+  }
+}
+
+/* el balanceo del cuerpo se sincroniza con la brazada */
+.pool-swimmer svg {
+  animation-duration: 1.15s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sw-arm-u,
+  .sw-arm-d,
+  .sw-leg-u,
+  .sw-leg-d {
+    animation: none;
+  }
+}
+
+/* =========================================================
+   NADADOR LOTTIE (comparativa)
+   ========================================================= */
+
+.lottie-swimmer,
+.lottie-swimmer > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* el balanceo del cuerpo aplica igual que al rig CSS */
+.pool-swimmer .lottie-swimmer {
+  animation: swim-wobble 1.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pool-swimmer .lottie-swimmer {
+    animation: none;
+  }
+}
