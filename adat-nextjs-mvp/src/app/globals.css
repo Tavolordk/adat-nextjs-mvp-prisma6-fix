@@ -3441,8 +3441,8 @@ body {
   height: 64px;
   margin-bottom: -1px;
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 64' preserveAspectRatio='none'%3E%3Cpath d='M0 32 C360 6 360 58 720 32 C1080 6 1080 58 1440 32 L1440 64 L0 64 Z' fill='%230b1f3a'/%3E%3C/svg%3E"),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 64' preserveAspectRatio='none'%3E%3Cpath d='M0 32 C360 58 360 6 720 32 C1080 58 1080 6 1440 32 L1440 64 L0 64 Z' fill='%230b1f3a' fill-opacity='0.32'/%3E%3C/svg%3E");
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 64' preserveAspectRatio='none'%3E%3Cpath d='M0 36 C120 18 210 52 350 40 C480 28 540 12 700 32 C840 48 920 56 1060 36 C1180 20 1320 54 1440 36 L1440 64 L0 64 Z' fill='%230b1f3a'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 64' preserveAspectRatio='none'%3E%3Cpath d='M0 30 C140 48 230 14 380 26 C520 38 590 54 740 34 C880 16 960 10 1100 30 C1230 46 1300 12 1440 30 L1440 64 L0 64 Z' fill='%230b1f3a' fill-opacity='0.32'/%3E%3C/svg%3E");
   background-repeat: repeat-x;
   background-size:
     1440px 64px,
@@ -3539,7 +3539,7 @@ body {
   left: 0;
   right: 0;
   height: 72px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 72' preserveAspectRatio='none'%3E%3Cpath d='M0 36 C360 8 360 64 720 36 C1080 8 1080 64 1440 36 L1440 0 L0 0 Z' fill='%230b1f3a'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 72' preserveAspectRatio='none'%3E%3Cpath d='M0 40 C130 20 230 58 380 44 C520 31 590 14 750 36 C900 54 990 62 1130 40 C1250 22 1310 60 1440 40 L1440 0 L0 0 Z' fill='%230b1f3a'/%3E%3C/svg%3E");
   background-repeat: repeat-x;
   background-size: 1440px 72px;
   animation: wave-drift 9s linear infinite;
@@ -3647,11 +3647,14 @@ body {
 @keyframes splash-pop {
   0% {
     opacity: 0;
-    transform: scale(0.7) translateY(18px);
+    transform: scale(0.62) translateY(22px);
   }
-  62% {
+  55% {
     opacity: 1;
-    transform: scale(1.04) translateY(-2px);
+    transform: scale(1.07, 0.96) translateY(-4px);
+  }
+  74% {
+    transform: scale(0.97, 1.04) translateY(1px);
   }
   100% {
     opacity: 1;
@@ -3670,5 +3673,289 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .splash-intro {
     display: none;
+  }
+}
+
+/* =========================================================
+   CAPA CARICATURA v3
+   Contornos gruesos, sombras duras tipo sticker, física
+   squash & stretch. Aplica al sitio público; formularios y
+   panel admin conservan el tono sobrio.
+   ========================================================= */
+
+:root {
+  --outline: #10294a;
+  --hard-shadow: rgba(11, 31, 58, 0.16);
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* --- Trama de medios tonos (impresión de cómic) --- */
+
+.public-page,
+.content-page {
+  background-image: radial-gradient(
+    rgba(16, 41, 74, 0.055) 1.2px,
+    transparent 1.3px
+  );
+  background-size: 19px 19px;
+}
+
+/* --- Titulares de póster: sombra dura desplazada --- */
+
+.public-page .hero h1,
+.content-page .page-hero h1 {
+  text-shadow: 4px 4px 0 rgba(47, 143, 230, 0.28);
+}
+
+/* garabato subrayando los títulos de sección */
+.public-page .section-head h2::after,
+.content-page .section-head h2::after {
+  content: "";
+  display: block;
+  width: 132px;
+  height: 12px;
+  margin-top: 0.55rem;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 132 12' fill='none'%3E%3Cpath d='M2 7 Q 12 2 24 7 T 46 7 T 68 6 T 90 8 T 112 6 T 130 7' stroke='%232f8fe6' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E")
+    no-repeat;
+}
+
+/* --- Tarjetas sticker: contorno + sombra dura --- */
+
+.public-page .card,
+.content-page .card,
+.content-page .step-card,
+.content-page .event-card,
+.public-page .timeline-card,
+.public-page .values-strip,
+.content-page .discipline-carousel-card,
+.content-page .discipline-info-band,
+.content-page .ranking-panel,
+.content-page .discipline-tabs-shell {
+  border: 2px solid var(--outline);
+  box-shadow: 5px 5px 0 var(--hard-shadow);
+}
+
+.public-page .card,
+.content-page .card,
+.content-page .event-card,
+.content-page .discipline-carousel-card {
+  transition:
+    transform 0.28s var(--spring),
+    box-shadow 0.28s var(--spring),
+    border-color 0.2s ease;
+}
+.public-page .card:hover,
+.content-page .card:hover,
+.content-page .event-card:hover,
+.content-page .discipline-carousel-card:hover {
+  border-color: var(--outline);
+  transform: translate(-3px, -3px) rotate(-0.4deg);
+  box-shadow: 9px 9px 0 var(--hard-shadow);
+}
+
+.public-page .timeline-card {
+  border-left-width: 2px;
+  border-left-color: var(--outline);
+}
+
+/* iconos que saludan al pasar el cursor */
+@keyframes icon-wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-9deg);
+  }
+  55% {
+    transform: rotate(8deg);
+  }
+  80% {
+    transform: rotate(-3deg);
+  }
+}
+.public-page .card:hover .icon-wrap,
+.content-page .card:hover .icon-wrap,
+.content-page .event-card:hover .icon-wrap {
+  animation: icon-wiggle 0.55s var(--ease);
+}
+.public-page .card .icon-wrap,
+.content-page .card .icon-wrap,
+.content-page .event-card .icon-wrap,
+.public-page .values-strip .icon-wrap {
+  border: 2px solid var(--outline);
+}
+
+/* --- Botones de caricatura: se aplastan al presionar --- */
+
+.public-page .btn-primary,
+.public-page .btn-secondary,
+.content-page .btn-primary,
+.content-page .btn-secondary,
+.login-page .btn-primary {
+  border: 2px solid var(--outline);
+  box-shadow: 4px 4px 0 var(--outline);
+  transition:
+    transform 0.22s var(--spring),
+    box-shadow 0.22s var(--spring),
+    background 0.16s ease;
+}
+.public-page .btn-primary:hover,
+.public-page .btn-secondary:hover,
+.content-page .btn-primary:hover,
+.content-page .btn-secondary:hover,
+.login-page .btn-primary:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--outline);
+}
+.public-page .btn-primary:active,
+.public-page .btn-secondary:active,
+.content-page .btn-primary:active,
+.content-page .btn-secondary:active,
+.login-page .btn-primary:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 var(--outline);
+}
+
+/* dentro de paneles marinos la sombra dura se vuelve celeste */
+.public-page .cta-section .btn-primary,
+.public-page .blue-panel .btn-primary,
+.content-page .discipline-modal .btn-primary {
+  border-color: white;
+  box-shadow: 4px 4px 0 rgba(143, 210, 255, 0.55);
+}
+.public-page .cta-section .btn-primary:hover {
+  box-shadow: 6px 6px 0 rgba(143, 210, 255, 0.55);
+}
+.public-page .cta-section .btn-primary:active {
+  box-shadow: 1px 1px 0 rgba(143, 210, 255, 0.55);
+}
+
+/* --- Stickers ladeados --- */
+
+.content-page .event-status {
+  transform: rotate(-2deg);
+  border: 2px solid currentColor;
+}
+.content-page .discipline-card-index {
+  transform: rotate(2.5deg);
+  border-width: 2px;
+}
+.content-page .discipline-type {
+  border: 2px solid currentColor;
+  transform: rotate(-1.5deg);
+}
+
+/* --- Paneles oscuros: contorno y sombra celeste --- */
+
+.public-page .hero-card,
+.public-page .blue-panel,
+.public-page .cta-section,
+.content-page .page-hero-water {
+  border: 2px solid var(--outline);
+  box-shadow: 6px 6px 0 rgba(47, 143, 230, 0.3);
+}
+
+/* --- Controles del carrusel: rebote juguetón --- */
+
+.content-page .carousel-side-control,
+.content-page .carousel-control {
+  border: 2px solid var(--outline);
+  box-shadow: 3px 3px 0 var(--hard-shadow);
+  transition:
+    transform 0.25s var(--spring),
+    box-shadow 0.25s var(--spring),
+    background 0.16s ease,
+    color 0.16s ease;
+}
+.content-page .carousel-side-control:hover {
+  transform: translateY(-50%) translate(-2px, -2px) scale(1.05);
+  box-shadow: 6px 6px 0 var(--hard-shadow);
+}
+.content-page .carousel-control:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--hard-shadow);
+}
+
+/* --- Nadadores con chapoteo en la patada --- */
+
+.pool-swimmer::after {
+  content: "";
+  position: absolute;
+  left: -7px;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  margin-top: -3.5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow:
+    -9px -6px 0 -2px rgba(255, 255, 255, 0.7),
+    -10px 6px 0 -3px rgba(255, 255, 255, 0.6);
+  animation: kick-splash 0.38s ease-in-out infinite alternate;
+}
+@keyframes kick-splash {
+  from {
+    opacity: 0.35;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 0.95;
+    transform: scale(1.15);
+  }
+}
+
+/* --- Navegación: subrayado tipo marcador --- */
+
+.public-nav nav a:not(.nav-cta)::after {
+  height: 4px;
+  border-radius: 999px;
+  bottom: 0.34rem;
+}
+.public-nav .nav-cta {
+  border: 2px solid var(--outline);
+  box-shadow: 3px 3px 0 var(--outline);
+  transition:
+    transform 0.22s var(--spring),
+    box-shadow 0.22s var(--spring),
+    background 0.16s ease;
+}
+.public-nav .nav-cta:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--outline);
+}
+
+/* --- Franja de acceso rápido y footer con contorno --- */
+
+.public-page .search-band {
+  border: 2px solid var(--outline);
+  box-shadow: 6px 6px 0 var(--hard-shadow);
+}
+.public-page .search-link:hover {
+  border-color: var(--outline);
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--hard-shadow);
+}
+
+/* --- Movimiento reducido: sin rebotes ni chapoteos --- */
+
+@media (prefers-reduced-motion: reduce) {
+  .pool-swimmer::after {
+    animation: none;
+    display: none;
+  }
+  .public-page .card:hover,
+  .content-page .card:hover,
+  .content-page .event-card:hover,
+  .content-page .discipline-carousel-card:hover,
+  .public-page .btn-primary:hover,
+  .public-page .btn-secondary:hover,
+  .public-page .search-link:hover {
+    transform: none;
+  }
+  .public-page .card:hover .icon-wrap,
+  .content-page .card:hover .icon-wrap,
+  .content-page .event-card:hover .icon-wrap {
+    animation: none;
   }
 }
