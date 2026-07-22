@@ -4,6 +4,12 @@ import { PublicFooter } from "@/components/PublicFooter";
 import { PublicNav } from "@/components/PublicNav";
 import { PublicPageHero } from "@/components/PublicPageHero";
 
+export const metadata = {
+  title: "Liga Estatal de Natación | ADAT",
+  description:
+    "Jornadas, resultados y comunidad de la Liga Estatal de Natación de Tlaxcala organizada por ADAT.",
+};
+
 const pilares = [
   {
     icon: "calendar" as const,

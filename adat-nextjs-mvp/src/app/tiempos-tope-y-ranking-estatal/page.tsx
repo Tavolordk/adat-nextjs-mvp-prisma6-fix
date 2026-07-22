@@ -4,6 +4,12 @@ import { PublicFooter } from "@/components/PublicFooter";
 import { PublicNav } from "@/components/PublicNav";
 import { PublicPageHero } from "@/components/PublicPageHero";
 
+export const metadata = {
+  title: "Tiempos tope y ranking estatal | ADAT",
+  description:
+    "Consulta los tiempos tope y el ranking estatal de natación de Tlaxcala publicados por ADAT.",
+};
+
 const consultas = [
   [
     "Tiempos tope",

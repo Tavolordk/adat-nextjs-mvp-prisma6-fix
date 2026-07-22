@@ -4,6 +4,12 @@ import { PublicFooter } from "@/components/PublicFooter";
 import { PublicNav } from "@/components/PublicNav";
 import { PublicPageHero } from "@/components/PublicPageHero";
 
+export const metadata = {
+  title: "Competencias | ADAT",
+  description:
+    "Competencias oficiales de deportes acuáticos en Tlaxcala: convocatorias, sedes y participación.",
+};
+
 const modalidades = [
   {
     icon: "medal" as const,

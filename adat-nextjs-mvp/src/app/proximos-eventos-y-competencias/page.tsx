@@ -4,6 +4,12 @@ import { PublicFooter } from "@/components/PublicFooter";
 import { PublicNav } from "@/components/PublicNav";
 import { PublicPageHero } from "@/components/PublicPageHero";
 
+export const metadata = {
+  title: "Próximos eventos y competencias | ADAT",
+  description:
+    "Calendario de próximos eventos y competencias de deportes acuáticos en Tlaxcala.",
+};
+
 const tiposDePublicacion = [
   {
     tag: "Liga estatal",

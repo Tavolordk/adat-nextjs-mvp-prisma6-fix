@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import Link from "next/link";
 import { PublicNav } from "@/components/PublicNav";
+import { Icon } from "@/components/icons";
 
 const initialForm = {
   firstName: "",
@@ -86,9 +87,13 @@ export default function AfiliacionPage() {
           )}
 
           <form className="form-grid" onSubmit={submit}>
+            <h2 className="form-section-title">Datos del atleta</h2>
+
             <div className="form-field">
-              <label>Nombre</label>
+              <label htmlFor="af-nombre">Nombre</label>
               <input
+                id="af-nombre"
+                autoComplete="given-name"
                 required
                 value={form.firstName}
                 onChange={(e) => updateField("firstName", e.target.value)}
@@ -96,8 +101,10 @@ export default function AfiliacionPage() {
             </div>
 
             <div className="form-field">
-              <label>Apellidos</label>
+              <label htmlFor="af-apellidos">Apellidos</label>
               <input
+                id="af-apellidos"
+                autoComplete="family-name"
                 required
                 value={form.lastName}
                 onChange={(e) => updateField("lastName", e.target.value)}
@@ -105,8 +112,10 @@ export default function AfiliacionPage() {
             </div>
 
             <div className="form-field">
-              <label>Correo</label>
+              <label htmlFor="af-correo">Correo</label>
               <input
+                id="af-correo"
+                autoComplete="email"
                 required
                 type="email"
                 value={form.email}
@@ -115,8 +124,12 @@ export default function AfiliacionPage() {
             </div>
 
             <div className="form-field">
-              <label>Teléfono</label>
+              <label htmlFor="af-telefono">Teléfono</label>
               <input
+                id="af-telefono"
+                type="tel"
+                autoComplete="tel"
+                inputMode="tel"
                 required
                 value={form.phone}
                 onChange={(e) => updateField("phone", e.target.value)}
@@ -124,8 +137,9 @@ export default function AfiliacionPage() {
             </div>
 
             <div className="form-field">
-              <label>Fecha de nacimiento</label>
+              <label htmlFor="af-nacimiento">Fecha de nacimiento</label>
               <input
+                id="af-nacimiento"
                 type="date"
                 value={form.birthDate}
                 onChange={(e) => updateField("birthDate", e.target.value)}
@@ -133,17 +147,22 @@ export default function AfiliacionPage() {
             </div>
 
             <div className="form-field">
-              <label>Municipio</label>
+              <label htmlFor="af-municipio">Municipio</label>
               <input
+                id="af-municipio"
+                placeholder="p. ej. Apizaco"
                 required
                 value={form.municipality}
                 onChange={(e) => updateField("municipality", e.target.value)}
               />
             </div>
 
+            <h2 className="form-section-title">Perfil deportivo</h2>
+
             <div className="form-field">
-              <label>Disciplina</label>
+              <label htmlFor="af-disciplina">Disciplina</label>
               <select
+                id="af-disciplina"
                 value={form.discipline}
                 onChange={(e) => updateField("discipline", e.target.value)}
               >
@@ -157,8 +176,9 @@ export default function AfiliacionPage() {
             </div>
 
             <div className="form-field">
-              <label>Nivel</label>
+              <label htmlFor="af-nivel">Nivel</label>
               <select
+                id="af-nivel"
                 value={form.level}
                 onChange={(e) => updateField("level", e.target.value)}
               >
@@ -170,35 +190,62 @@ export default function AfiliacionPage() {
             </div>
 
             <div className="form-field">
-              <label>Club o escuela</label>
+              <label htmlFor="af-club">Club o escuela</label>
               <input
+                id="af-club"
+                placeholder="Opcional"
                 value={form.clubOrSchool}
                 onChange={(e) => updateField("clubOrSchool", e.target.value)}
               />
             </div>
 
+            <h2 className="form-section-title">Tutor o responsable</h2>
+            <p className="form-hint">
+              Obligatorio si el atleta es menor de edad.
+            </p>
+
             <div className="form-field">
-              <label>Nombre del tutor</label>
+              <label htmlFor="af-tutor-nombre">Nombre del tutor</label>
               <input
+                id="af-tutor-nombre"
+                autoComplete="name"
                 value={form.guardianName}
                 onChange={(e) => updateField("guardianName", e.target.value)}
               />
             </div>
 
             <div className="form-field">
-              <label>Teléfono del tutor</label>
+              <label htmlFor="af-tutor-telefono">Teléfono del tutor</label>
               <input
+                id="af-tutor-telefono"
+                type="tel"
+                autoComplete="tel"
+                inputMode="tel"
                 value={form.guardianPhone}
                 onChange={(e) => updateField("guardianPhone", e.target.value)}
               />
             </div>
 
+            <h2 className="form-section-title">Comentarios</h2>
+
             <div className="form-field full">
-              <label>Comentarios</label>
+              <label htmlFor="af-comentarios">
+                ¿Algo más que debamos saber?
+              </label>
               <textarea
+                id="af-comentarios"
+                placeholder="Opcional: experiencia previa, horarios, dudas..."
                 value={form.comments}
                 onChange={(e) => updateField("comments", e.target.value)}
               />
+            </div>
+
+            <div className="form-privacy">
+              <Icon name="shield" className="icon" />
+              <span>
+                Tus datos se usan únicamente para revisar tu solicitud de
+                afiliación y contactarte sobre actividades de ADAT.
+              </span>
             </div>
 
             <div className="form-field full">

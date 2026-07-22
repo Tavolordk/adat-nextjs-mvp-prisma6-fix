@@ -28,11 +28,31 @@ const programas = [
 ];
 
 const valores = [
-  ["Disciplina", "Base de todo resultado."],
-  ["Compromiso", "Cumplir incluso cuando no hay motivación."],
-  ["Respeto", "Entre atletas, entrenadores y rivales."],
-  ["Trabajo en equipo", "El éxito es colectivo."],
-  ["Orgullo tlaxcalteca", "Representar con identidad."],
+  {
+    icon: "target" as const,
+    title: "Disciplina",
+    text: "Base de todo resultado.",
+  },
+  {
+    icon: "check" as const,
+    title: "Compromiso",
+    text: "Cumplir incluso cuando no hay motivación.",
+  },
+  {
+    icon: "shield" as const,
+    title: "Respeto",
+    text: "Entre atletas, entrenadores y rivales.",
+  },
+  {
+    icon: "users" as const,
+    title: "Trabajo en equipo",
+    text: "El éxito es colectivo.",
+  },
+  {
+    icon: "medal" as const,
+    title: "Orgullo tlaxcalteca",
+    text: "Representar con identidad.",
+  },
 ];
 
 export default function Home() {
@@ -82,18 +102,18 @@ export default function Home() {
 
           <div className="stat-strip">
             <div className="stat">
+              <strong>7</strong>
+              <span>disciplinas acuáticas</span>
+            </div>
+
+            <div className="stat">
               <strong>2026</strong>
-              <span>temporada de impulso</span>
+              <span>temporada en curso</span>
             </div>
 
             <div className="stat">
-              <strong>2450m</strong>
-              <span>identidad competitiva</span>
-            </div>
-
-            <div className="stat">
-              <strong>ADAT</strong>
-              <span>Tlaxcala en el agua</span>
+              <strong>60</strong>
+              <span>municipios convocados</span>
             </div>
           </div>
         </div>
@@ -216,15 +236,15 @@ export default function Home() {
           <h2>La cultura deportiva que sostiene el rendimiento.</h2>
         </div>
 
-        <div className="cards-grid">
-          {valores.map(([title, text]) => (
-            <article className="card" key={title}>
+        <div className="values-strip">
+          {valores.map((valor) => (
+            <article key={valor.title}>
               <div className="icon-wrap">
-                <Icon name="check" />
+                <Icon name={valor.icon} />
               </div>
 
-              <h3>{title}</h3>
-              <p>{text}</p>
+              <h3>{valor.title}</h3>
+              <p>{valor.text}</p>
             </article>
           ))}
         </div>

@@ -7,8 +7,8 @@ import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("admin@adat.com.mx");
-  const [password, setPassword] = useState("Adat2026!*");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -41,9 +41,7 @@ export default function LoginPage() {
           <Link href="/" className="btn-ghost">
             ← Sitio público
           </Link>
-          <div
-            style={{ display: "grid", placeItems: "center", margin: "1rem 0" }}
-          >
+          <div className="login-logo">
             <Image
               src="/assets/adat-logo.png"
               alt="ADAT"
@@ -60,19 +58,23 @@ export default function LoginPage() {
           {error && <div className="alert error">{error}</div>}
           <form className="form-grid" onSubmit={login}>
             <div className="form-field full">
-              <label>Correo</label>
+              <label htmlFor="login-email">Correo</label>
               <input
+                id="login-email"
                 type="email"
                 required
+                autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="form-field full">
-              <label>Contraseña</label>
+              <label htmlFor="login-password">Contraseña</label>
               <input
+                id="login-password"
                 type="password"
                 required
+                autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />

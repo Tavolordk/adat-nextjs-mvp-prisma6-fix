@@ -71,6 +71,11 @@ export default function AdminPage() {
             <span>Aceptados</span>
             <strong>{stats.aceptado}</strong>
           </div>
+
+          <div className="stat-card">
+            <span>Rechazados</span>
+            <strong>{stats.rechazado}</strong>
+          </div>
         </div>
       )}
     </section>
