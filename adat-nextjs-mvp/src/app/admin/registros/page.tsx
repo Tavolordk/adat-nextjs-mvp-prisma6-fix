@@ -9,6 +9,7 @@ import {
   levelLabels,
   statusLabels,
 } from "@/lib/format";
+import { SwimLoader } from "@/components/SwimLoader";
 
 type Registration = {
   id: string;
@@ -278,7 +279,7 @@ export default function RegistrosPage() {
 
       <div className="table-card">
         {loading ? (
-          <div className="loading">Cargando afiliaciones...</div>
+          <SwimLoader label="Cargando afiliaciones..." />
         ) : (
           <table>
             <thead>

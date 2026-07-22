@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { SwimLoader } from "@/components/SwimLoader";
 
 type Stats = {
   total: number;
@@ -49,7 +50,7 @@ export default function AdminPage() {
       </div>
 
       {!stats ? (
-        <div className="loading">Cargando indicadores...</div>
+        <SwimLoader label="Cargando indicadores..." />
       ) : (
         <div className="stats-grid">
           <div className="stat-card">

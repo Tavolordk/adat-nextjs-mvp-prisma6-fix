@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
-import { Swimmer } from "@/components/WaterFx";
-import { LottieSwimmer } from "@/components/LottieSwimmer";
+import { SwimmerScene } from "@/components/SwimmerScene";
 
 type PublicPageHeroProps = {
   eyebrow: ReactNode;
@@ -28,19 +27,12 @@ export function PublicPageHero({
       </div>
 
       <div className="page-hero-water" aria-hidden="true">
+        {/* respaldo estático para prefers-reduced-motion */}
         <span />
         <span />
         <span />
 
-        {/* carril 1: rig CSS */}
-        <div className="pool-swimmer">
-          <Swimmer />
-        </div>
-
-        {/* carril 2: Lottie, para comparar */}
-        <div className="pool-swimmer">
-          <LottieSwimmer />
-        </div>
+        <SwimmerScene />
       </div>
     </section>
   );
